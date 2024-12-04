@@ -1,4 +1,9 @@
 "use client";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import Image from "next/image";
 import { toast } from "sonner";
 
@@ -49,9 +54,14 @@ export default function Home() {
           >
             Read our docs
           </a>
-          <button onClick={() => toast("My first toast")}>
-            Give me a toast
-          </button>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <button onClick={() => toast("My first toast")}>
+                Give me a toast
+              </button>
+            </TooltipTrigger>
+            <TooltipContent>Click me!</TooltipContent>
+          </Tooltip>
         </div>
       </main>
       <footer className="row-start-3 flex flex-wrap items-center justify-center gap-6">
