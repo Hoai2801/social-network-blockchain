@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.hungdev</groupId>
-	<artifactId>fanpages-service</artifactId>
+	<artifactId>user-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>fanpages-server</name>
-	<description>Fanpages Service</description>
+	<name>users-service</name>
+	<description>Users Service</description>
 	<url/>
 	<licenses>
 		<license/>
