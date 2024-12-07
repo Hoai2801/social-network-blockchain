@@ -4,7 +4,8 @@ import localFont from "next/font/local";
 import { Toaster } from "sonner";
 import "./globals.css";
 import React from "react";
-import Link from "next/link";
+import AppWalletProvider from "@/components/ui/AppWalletProvider";
+import Navbar from "@/layout/Navbar";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -27,14 +28,23 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
-    <html lang="en">
+      <html lang="en" className="h-full">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+          className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-100 min-h-screen`}
       >
-        <Toaster richColors closeButton position="top-right" />
-        <TooltipProvider>{children}</TooltipProvider>
+      <AppWalletProvider>
+          <div className="relative">
+              {/* sticky not working */}
+              <Navbar/>
+              <div className={`pt-24`}>
+                  <Toaster richColors closeButton position="top-right"/>
+                  <TooltipProvider>{children}</TooltipProvider>
+              </div>
+          </div>
+      </AppWalletProvider>
       </body>
-    </html>
+      </html>
   );
 }
