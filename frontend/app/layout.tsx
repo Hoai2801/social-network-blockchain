@@ -3,6 +3,8 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Toaster } from "sonner";
 import "./globals.css";
+import React from "react";
+import Link from "next/link";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -30,8 +32,17 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Toaster richColors position="top-right" />
-        <TooltipProvider>{children}</TooltipProvider>
+      <header className="bg-blue-600 text-white py-4">
+        <div className="container mx-auto flex justify-between items-center px-6">
+          <h1 className="text-2xl font-bold">SecExchange</h1>
+          <nav>
+            <a href="#" className="text-white hover:underline px-3">Explore</a>
+            <Link href="/profile" className="text-white hover:underline px-3" >Profile</Link>
+            <a href="#" className="text-white hover:underline px-3">Create</a>
+          </nav>
+        </div>
+      </header>
+      <TooltipProvider>{children}</TooltipProvider>
       </body>
     </html>
   );
