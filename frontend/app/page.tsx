@@ -9,7 +9,6 @@ export default function Home() {
   return (
     <>
       <div className="container flex flex-col">
-        <div className="h-24 w-full bg-teal-500"></div>
         <div className="flex min-h-screen gap-6 pt-6">
           <div className="hidden w-[20%] xl:block">
             <LeftMenu type="home" />

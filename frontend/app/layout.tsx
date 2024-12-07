@@ -1,11 +1,11 @@
+import AppWalletProvider from "@/components/ui/AppWalletProvider";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import Navbar from "@/layout/Navbar";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import React from "react";
 import { Toaster } from "sonner";
 import "./globals.css";
-import React from "react";
-import AppWalletProvider from "@/components/ui/AppWalletProvider";
-import Navbar from "@/layout/Navbar";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -28,23 +28,22 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   return (
-      <html lang="en" className="h-full">
+    <html lang="en" className="h-full">
       <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-100 min-h-screen`}
+        className={`${geistSans.variable} ${geistMono.variable} min-h-screen bg-gray-100 antialiased`}
       >
-      <AppWalletProvider>
+        <AppWalletProvider>
           <div className="relative">
-              {/* sticky not working */}
-              <Navbar/>
-              <div className={`pt-24`}>
-                  <Toaster richColors closeButton position="top-right"/>
-                  <TooltipProvider>{children}</TooltipProvider>
-              </div>
+            {/* sticky not working */}
+            <Navbar />
+            <div className={`pt-24`}>
+              <Toaster richColors closeButton position="top-right" />
+              <TooltipProvider>{children}</TooltipProvider>
+            </div>
           </div>
-      </AppWalletProvider>
+        </AppWalletProvider>
       </body>
-      </html>
+    </html>
   );
 }
