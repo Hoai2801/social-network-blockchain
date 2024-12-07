@@ -1,9 +1,35 @@
 "use client";
 
+import LeftMenu from "@/components/page/leftMenu/LeftMenu";
+import Modal from "@/components/ui/modal";
+import useToggle from "@/hooks/use-state-toggle";
+
 export default function Home() {
+  const modal = useToggle();
   return (
-    <div className="grid min-h-screen grid-rows-[20px_1fr_20px] items-center justify-items-center gap-16 p-8 pb-20 font-[family-name:var(--font-geist-sans)] sm:p-20">
-      home
-    </div>
+    <>
+      <div className="container flex flex-col">
+        <div className="h-24 w-full bg-teal-500"></div>
+        <div className="flex min-h-screen gap-6 pt-6">
+          <div className="hidden w-[20%] xl:block">
+            <LeftMenu type="home" />
+          </div>
+          <div className="w-full bg-red-500 lg:w-[70%] xl:w-[50%]">
+            <div className="flex flex-col gap-6">
+              {/* <Stories /> */}
+              {/* <AddPost /> */}
+              {/* <Feed /> */}
+            </div>
+          </div>
+          <div className="hidden w-[30%] bg-sky-500 lg:block">
+            {/* <RightMenu /> */}
+            <button onClick={modal.open}>click me</button>
+          </div>
+        </div>
+      </div>
+      <Modal isOpen={modal.isOpen} onClose={modal.close}>
+        <div>Modal Content</div>
+      </Modal>
+    </>
   );
 }
