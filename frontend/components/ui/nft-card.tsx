@@ -17,7 +17,6 @@ const NFTCard: React.FC<NFTCardProps> = ({ image, title, price, isSelling}) => {
             </div>
             <div className="p-4">
                 <h2 className="text-xl font-bold mb-2">{title}</h2>
-                {/*<p className="text-gray-400 text-sm mb-4">{description}</p>*/}
                 <div className="flex justify-between items-center">
                     <span className="text-lg font-semibold">{price} ETH</span>
                     {
