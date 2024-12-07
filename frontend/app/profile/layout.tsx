@@ -1,8 +1,9 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React from "react";
+import React, { Suspense } from "react";
 
 const Layout = ({
   children, // will be a page or nested layout
@@ -14,16 +15,20 @@ const Layout = ({
   return (
     <div className="container">
       <section className="relative h-48 bg-gray-300">
-        <img
+        <Image
           src="https://via.placeholder.com/1920x200"
           alt="Profile Banner"
           className="h-full w-full object-cover"
+          width={1920}
+          height={200}
         />
         <div className="absolute bottom-0 left-[180px] translate-y-1/2 transform object-cover">
-          <img
+          <Image
             src="https://cdn-icons-png.flaticon.com/512/6596/6596121.png"
             alt="User Avatar"
             className="h-[180px] w-[180px] rounded-full border-4 border-white object-cover"
+            width={180}
+            height={180}
           />
         </div>
       </section>
@@ -55,48 +60,32 @@ const Layout = ({
       <section className="mt-8 px-6">
         <div className="container mx-auto">
           <ul className="flex border-b">
-            <li className="mr-6">
-              <Link
-                href="/profile"
-                className={`inline-block px-4 py-2 ${
-                  pathname === "/profile"
-                    ? "border-b-2 border-blue-600 font-semibold text-blue-600"
-                    : "text-gray-600 hover:text-blue-600"
-                }`}
-              >
-                Collected
-              </Link>
-            </li>
-            <li className="mr-6">
-              <Link
-                href="/profile/favorite"
-                className={`inline-block px-4 py-2 ${
-                  pathname === "/profile/favorite"
-                    ? "border-b-2 border-blue-600 font-semibold text-blue-600"
-                    : "text-gray-600 hover:text-blue-600"
-                }`}
-              >
-                Favorited
-              </Link>
-            </li>
-            <li className="mr-6">
-              <Link
-                href="/profile/project"
-                className={`inline-block px-4 py-2 ${
-                  pathname === "/profile/favorite"
-                    ? "border-b-2 border-blue-600 font-semibold text-blue-600"
-                    : "text-gray-600 hover:text-blue-600"
-                }`}
-              >
-                Project
-              </Link>
-            </li>
+            {[
+              { href: "/profile", label: "Collected" },
+              { href: "/profile/favorite", label: "Favorited" },
+              { href: "/profile/project", label: "Project" },
+            ].map((item) => (
+              <li key={item.href} className="mr-6">
+                <Link
+                  href={item.href}
+                  className={`inline-block px-4 py-2 ${
+                    pathname === item.href
+                      ? "border-b-2 border-blue-600 font-semibold text-blue-600"
+                      : "text-gray-600 hover:text-blue-600"
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
       </section>
 
       <section className="mt-8 px-6">
-        <div className="container mx-auto">{children}</div>
+        <div className="container mx-auto">
+          <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
+        </div>
       </section>
     </div>
   );
