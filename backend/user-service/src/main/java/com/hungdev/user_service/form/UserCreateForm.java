@@ -18,6 +18,8 @@ public class UserCreateForm {
     @NotBlank(message = "Tên người dùng không được để trống")
     @Length(max = 100, message = "Tên người dùng có tối đa 100 kí tự")
     private String username;
+    
+    private String password;
 
     private String images;
 

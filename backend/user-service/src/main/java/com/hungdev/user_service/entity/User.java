@@ -22,6 +22,8 @@ public class User {
 
     @Column(name = "public_key")
     private String publicKey;
+    
+    private String password;
 
     @NotNull
     @Size(min = 1, max = 100)
