@@ -1,3 +1,4 @@
+import { ThemeProvider } from "@/components/theme/theme-context";
 import AppWalletProvider from "@/components/ui/app-wallet-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Navbar from "@/layout/navbar";
@@ -37,9 +38,11 @@ export default function RootLayout({
           <div className="relative">
             {/* sticky not working */}
             <Navbar />
-            <div className={`pt-24`}>
-              <Toaster richColors closeButton position="top-right" />
-              <TooltipProvider>{children}</TooltipProvider>
+            <Toaster richColors closeButton position="top-right" />
+            <div className={`pt-16`}>
+              <ThemeProvider>
+                <TooltipProvider>{children}</TooltipProvider>
+              </ThemeProvider>
             </div>
           </div>
         </AppWalletProvider>
