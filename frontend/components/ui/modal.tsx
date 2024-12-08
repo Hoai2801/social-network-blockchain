@@ -51,9 +51,6 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
               >
                 <X className="h-5 w-5" />
               </button>
-              <div id="modal-title" className="sr-only">
-                Modal Title
-              </div>
               {children}
             </motion.div>
           </div>
