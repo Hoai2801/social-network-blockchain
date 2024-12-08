@@ -83,7 +83,7 @@ const Layout = ({
                             <Link
                                 href="/profile/project"
                                 className={`inline-block py-2 px-4 ${
-                                    pathname === '/profile/favorite'
+                                    pathname === '/profile/project'
                                         ? 'text-blue-600 border-b-2 border-blue-600 font-semibold'
                                         : 'text-gray-600 hover:text-blue-600'
                                 }`}

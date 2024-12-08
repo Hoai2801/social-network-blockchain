@@ -41,6 +41,7 @@ const Profile = () => {
                     image={nft.image}
                     title={nft.title}
                     price={nft.price}
+                    isSelling={false}
                 />
             ))}
         </div>
