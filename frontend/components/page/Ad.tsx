@@ -2,15 +2,15 @@ import Image from "next/image";
 
 const Ad = ({ size }: { size: "sm" | "md" | "lg" }) => {
   return (
-    <div className="p-4 bg-white rounded-lg shadow-md text-sm ">
+    <div className="rounded-lg bg-white p-4 text-sm shadow-md">
       {/* TOP */}
-      <div className="flex items-center justify-between text-gray-500 font-medium">
+      <div className="flex items-center justify-between font-medium text-gray-500">
         <span>Sponsored Ads</span>
         <Image src="/more.png" alt="" width={16} height={16} />
       </div>
       {/* BOTTOM */}
       <div
-        className={`flex flex-col mt-4 ${size === "sm" ? "gap-2" : "gap-4"}`}
+        className={`mt-4 flex flex-col ${size === "sm" ? "gap-2" : "gap-4"}`}
       >
         <div
           className={`relative w-full ${
@@ -30,18 +30,18 @@ const Ad = ({ size }: { size: "sm" | "md" | "lg" }) => {
             alt=""
             width={24}
             height={24}
-            className="rounded-full w-6 h-6 object-cover"
+            className="h-6 w-6 rounded-full object-cover"
           />
-          <span className="text-blue-500 font-medium">BigChef Lounge</span>
+          <span className="font-medium text-blue-500">BigChef Lounge</span>
         </div>
         <p className={size === "sm" ? "text-xs" : "text-sm"}>
           {size === "sm"
             ? "Lorem ipsum dolor sit amet consectetur adipisicing elit."
             : size === "md"
-            ? "Lorem ipsum dolor sit amet consectetur adipisicing elit.  Lorem ipsum dolor sit amet consectetur adipisicing elit."
-            : "Lorem ipsum dolor sit amet consectetur adipisicing elit.  Lorem ipsum dolor sit amet consectetur adipisicing elit.  Lorem ipsum dolor sit amet consectetur adipisicing elit."}
+              ? "Lorem ipsum dolor sit amet consectetur adipisicing elit.  Lorem ipsum dolor sit amet consectetur adipisicing elit."
+              : "Lorem ipsum dolor sit amet consectetur adipisicing elit.  Lorem ipsum dolor sit amet consectetur adipisicing elit.  Lorem ipsum dolor sit amet consectetur adipisicing elit."}
         </p>
-        <button className="bg-gray-200 text-gray-500 p-2 text-xs rounded-lg">
+        <button className="rounded-lg bg-gray-200 p-2 text-xs text-gray-500">
           Learn more
         </button>
       </div>
