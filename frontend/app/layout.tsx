@@ -1,6 +1,6 @@
-import AppWalletProvider from "@/components/ui/AppWalletProvider";
+import AppWalletProvider from "@/components/ui/app-wallet-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import Navbar from "@/layout/Navbar";
+import Navbar from "@/layout/navbar";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import React from "react";
