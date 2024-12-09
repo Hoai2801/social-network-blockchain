@@ -1,131 +1,191 @@
 "use client";
 import React, { useState } from "react";
-import { Connection, PublicKey, Keypair, Transaction } from "@solana/web3.js";
+import axios from "axios";
 import {useWallet} from "@solana/wallet-adapter-react";
 
-const CreateNFT = () => {
-    const address = "123";
-    const [name, setName] = useState("");
-    const [description, setDescription] = useState("");
-    const [supply, setSupply] = useState(1);
-    const [file, setFile] = useState(null);
+const CreateNFTPage = () => {
+    const YOUR_WALLET_ADDRESS = useWallet().publicKey?.toBase58();
+    const api = "fs8UM23RK3iSyvjK";
+    const [traits, setTraits] = useState([{ key: "abc", value: "2" }]);
+    const [formData, setFormData] = useState({
+        name: "",
+        supply: "1",
+        description: "",
+        externalUrl: "",
+        image: null,
+    });
 
-    const handleFileChange = (event: { target: { files: React.SetStateAction<null>[]; }; }) => {
-        setFile(event.target.files[0]);
+    const addTrait = () => {
+        setTraits([...traits, { key: "", value: "" }]);
     };
 
-    const handleNameChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
-        setName(event.target.value);
+    const updateTrait = (index: number, field: string, value: string) => {
+        const updatedTraits = [...traits];
+        updatedTraits[index] = { ...updatedTraits[index], [field]: value };
+        setTraits(updatedTraits);
     };
 
-    const handleDescriptionChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
-        setDescription(event.target.value);
+    const removeTrait = (index: number) => {
+        setTraits(traits.filter((_, i) => i !== index));
     };
 
-    const handleSupplyChange = (event: { target: { value: React.SetStateAction<number>; }; }) => {
-        setSupply(event.target.value);
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+    };
+
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files) {
+            setFormData({ ...formData, image: e.target.files[0] });
+        }
     };
 
     const mintNFT = async () => {
-        if (!address || !file || !name || !supply) {
-            alert("Please fill all required fields and connect your wallet.");
-            return;
-        }
+        const network = "devnet";
 
         try {
-            // Connect to Solana cluster
-            const connection = new Connection("https://api.devnet.solana.com", "confirmed");
+            const attributes = traits.map((trait) => ({ trait_type: trait.key, value: trait.value }));
 
-            // Assuming you have your private key securely stored elsewhere
-            const payer = Keypair.generate(); // Replace with your payer keypair for mainnet
+            const nftFormData = new FormData();
+            nftFormData.append("network", network);
+            nftFormData.append("creator_wallet", YOUR_WALLET_ADDRESS);
+            nftFormData.append("name", formData.name);
+            nftFormData.append("symbol", "SYMBOL"); // Replace with your symbol
+            nftFormData.append("description", formData.description);
+            nftFormData.append("attributes", JSON.stringify(attributes));
+            nftFormData.append("external_url", formData.externalUrl);
+            if (formData.image) {
+                nftFormData.append("image", formData.image);
+            }
+            nftFormData.append("fee_payer", YOUR_WALLET_ADDRESS);
+            console.log(nftFormData)
+            console.log(api)
 
-            // Prepare metadata for the NFT
-            const metadata = {
-                name,
-                description,
-                image: file, // Convert the file into a URL with IPFS or a similar service
-                supply: parseInt(String(supply), 10),
-            };
+            const response = await axios.post(
+                "https://api.shyft.to/sol/v2/nft/create",
+                nftFormData,
+                {
+                    headers: {
+                        "x-api-key": api, // Replace YOUR_API_KEY with your Shyft API Key
+                    },
+                }
+            );
 
-            alert("NFT minted successfully!");
+            console.log("NFT minted successfully:", response.data);
         } catch (error) {
-            console.error("Error minting NFT", error);
-            alert("Failed to mint NFT. Check console for details.");
+            console.error("Error minting NFT:", error);
         }
     };
 
     return (
-        <div className="flex justify-center h-[90vh]">
-            <div>
-                <h1 className="text-[42px] font-bold">Create New NFT</h1>
-                <div className="border rounded-lg border-gray-400 p-2 flex gap-5 mt-5">
-                    <p className="mt-3">
-                        {address || "You are not connected"}
-                    </p>
-                </div>
-                <div className="mt-5">
-                    <h3>Upload file</h3>
-                    <div
-                        className="rounded-lg border-dashed mt-2 border-gray-400 border p-2 h-[200px] flex justify-center items-center">
+        <div className="min-h-screen bg-black text-white flex items-center justify-center p-6">
+            <div className="w-full max-w-4xl">
+                <h1 className="text-2xl font-bold mb-4">Create an NFT</h1>
+                <p className="text-gray-400 mb-8">
+                    Once your item is minted you will not be able to change any of its information.
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {/* Media Upload */}
+                    <div className="border-2 border-dashed border-gray-500 p-6 flex flex-col items-center justify-center">
+                        <p className="text-center">Drag and drop media</p>
+                        <p className="text-center text-sm text-gray-400">Max size: 50MB</p>
+                        <p className="text-center text-sm text-gray-400">JPG, PNG, GIF, SVG, MP4</p>
+                        <input type="file" className="mt-4" onChange={handleFileChange} />
+                    </div>
+
+                    {/* Form */}
+                    <div>
+                        <div className="mb-4">
+                            <label className="block text-sm font-medium mb-2">Collection *</label>
+                            <button className="w-full bg-gray-800 border border-gray-700 rounded p-2">Create a new collection</button>
+                        </div>
+                        <div className="mb-4">
+                            <label className="block text-sm font-medium mb-2">Name *</label>
+                            <input
+                                type="text"
+                                name="name"
+                                className="w-full bg-gray-800 border border-gray-700 rounded p-2"
+                                placeholder="Name your NFT"
+                                value={formData.name}
+                                onChange={handleInputChange}
+                            />
+                        </div>
+                        <div className="mb-4">
+                            <label className="block text-sm font-medium mb-2">Supply *</label>
+                            <input
+                                type="number"
+                                name="supply"
+                                className="w-full bg-gray-800 border border-gray-700 rounded p-2"
+                                placeholder="1"
+                                value={formData.supply}
+                                onChange={handleInputChange}
+                            />
+                        </div>
+                        <div className="mb-4">
+                            <label className="block text-sm font-medium mb-2">Description</label>
+                            <textarea
+                                name="description"
+                                className="w-full bg-gray-800 border border-gray-700 rounded p-2"
+                                placeholder="Enter a description"
+                                value={formData.description}
+                                onChange={handleInputChange}
+                            ></textarea>
+                        </div>
+                        <div className="mb-4">
+                            <label className="block text-sm font-medium mb-2">External link</label>
+                            <input
+                                type="url"
+                                name="externalUrl"
+                                className="w-full bg-gray-800 border border-gray-700 rounded p-2"
+                                placeholder="https://collection.io/item/123"
+                                value={formData.externalUrl}
+                                onChange={handleInputChange}
+                            />
+                        </div>
                         <div>
-                            <p>PNG, GIF, WEBP, MP4 or MP3. Max 100mb.</p>
-                            <div className="flex w-full justify-center mt-2">
-                                <input
-                                    type="file"
-                                    onChange={handleFileChange}
-                                    hidden
-                                    id="actual-btn"
-                                />
-                                <label
-                                    htmlFor="actual-btn"
-                                    className="border h-fit rounded-lg p-2 bg-slate-200 cursor-pointer"
-                                >
-                                    Choose File
-                                </label>
-                            </div>
+                            <label className="block text-sm font-medium mb-2">Traits</label>
+                            {traits.map((trait, index) => (
+                                <div key={index} className="flex items-center gap-2 mb-2">
+                                    <input
+                                        type="text"
+                                        className="flex-1 bg-gray-800 border border-gray-700 rounded p-2"
+                                        placeholder="Key"
+                                        value={trait.key}
+                                        onChange={(e) => updateTrait(index, "key", e.target.value)}
+                                    />
+                                    <input
+                                        type="text"
+                                        className="flex-1 bg-gray-800 border border-gray-700 rounded p-2"
+                                        placeholder="Value"
+                                        value={trait.value}
+                                        onChange={(e) => updateTrait(index, "value", e.target.value)}
+                                    />
+                                    <button
+                                        className="bg-red-600 p-2 rounded"
+                                        onClick={() => removeTrait(index)}
+                                    >
+                                        ✕
+                                    </button>
+                                </div>
+                            ))}
+                            <button
+                                className="w-full bg-gray-800 border border-gray-700 rounded p-2 mt-2"
+                                onClick={addTrait}
+                            >
+                                + Add trait
+                            </button>
                         </div>
                     </div>
                 </div>
-                <div>
-                    <form className="gap-2 flex flex-col">
-                        <label>
-                            Name <span className="text-orange-400">*</span>
-                            <input
-                                type="text"
-                                value={name}
-                                onChange={handleNameChange}
-                                className="ml-12 border-b border-black focus:border-b focus:outline-none p-2"
-                            />
-                        </label>
-                        <br />
-
-                        <label>
-                            Description
-                            <input
-                                value={description}
-                                onChange={handleDescriptionChange}
-                                className="ml-2 border-b border-black focus:border-b focus:outline-none p-2"
-                            />
-                        </label>
-                        <label>
-                            Initial Supply <span className="text-orange-400">*</span>
-                            <input
-                                type="number"
-                                value={supply}
-                                onChange={handleSupplyChange}
-                                className="ml-2 border-b border-black focus:border-b focus:outline-none p-2"
-                            />
-                        </label>
-                    </form>
-                </div>
-                <div className="flex w-full justify-center mt-5">
-                    <button onClick={mintNFT} className="bg-blue-400 rounded-lg p-2 text-white px-5">
-                        Mint
-                    </button>
-                </div>
+                <button
+                    className="w-full bg-blue-600 rounded p-2 mt-6"
+                    onClick={mintNFT}
+                >
+                    Create
+                </button>
             </div>
         </div>
     );
 };
 
-export default CreateNFT;
+export default CreateNFTPage;

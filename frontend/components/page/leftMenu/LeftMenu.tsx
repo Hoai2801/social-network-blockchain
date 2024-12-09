@@ -6,7 +6,7 @@ import ProfileCard from "./ProfileCard";
 const menuItems = [
   { href: "/", src: "/posts.png", label: "My Posts" },
   { href: "/", src: "/activity.png", label: "Activity" },
-  { href: "/", src: "/market.png", label: "Marketplace" },
+  { href: "/marketplace", src: "/market.png", label: "Marketplace" },
   { href: "/", src: "/events.png", label: "Events" },
   { href: "/", src: "/albums.png", label: "Albums" },
   { href: "/", src: "/videos.png", label: "Videos" },
