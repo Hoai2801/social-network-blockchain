@@ -44,10 +44,13 @@ const Navbar = () => {
               title: "Navigation",
               content: (
                 <div
-                  className="flex items-center p-2.5 pl-6 transition-colors hover:bg-[#ededed]"
+                  className="flex items-center pl-6 transition-colors hover:bg-[#ededed]"
                   onClick={sidebar.close}
                 >
-                  <Link href="/" className="w-full transition-all hover:pl-2">
+                  <Link
+                    href="/"
+                    className="w-full p-2.5 pl-0 transition-all hover:pl-2"
+                  >
                     <div className="flex items-center gap-2.5 text-[#4479e2]">
                       <ArrowRight size={22} strokeWidth={1} />
                       <p>Home</p>
