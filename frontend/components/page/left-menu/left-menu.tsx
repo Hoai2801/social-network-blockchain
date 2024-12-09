@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import Ad from "../ad";
-import ProfileCard from "./profile-card";
 
 const menuItems = [
   { href: "/", src: "/posts.png", label: "My Posts" },
@@ -37,10 +36,9 @@ const MenuItem = ({
   </>
 );
 
-const LeftMenu = ({ type }: { type: "home" | "profile" }) => {
+const LeftMenu = () => {
   return (
     <div className="flex flex-col gap-6">
-      {type === "home" && <ProfileCard />}
       <div className="flex flex-col gap-2 rounded-lg bg-white p-4 text-sm text-gray-500 shadow-md">
         {menuItems.map((item, index) => (
           <MenuItem key={index} {...item} />

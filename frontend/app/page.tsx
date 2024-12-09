@@ -1,31 +1,30 @@
 "use client";
 
+import AddPost from "@/components/feed/AddPost";
+import Feed from "@/components/feed/Feed";
 import LeftMenu from "@/components/page/left-menu/left-menu";
+import ProfileCard from "@/components/page/left-menu/profile-card";
 import Modal from "@/components/ui/modal";
 import useToggle from "@/hooks/use-state-toggle";
-import Feed from "@/components/feed/Feed";
-import AddPost from "@/components/feed/AddPost";
 
 export default function Home() {
   const modal = useToggle();
   return (
     <>
       <div className="container flex flex-col">
-        <div className="flex min-h-screen gap-6 pt-6">
+        <div className="flex min-h-screen justify-center gap-6 pt-6">
           <div className="hidden w-[20%] xl:block">
-            <LeftMenu type="home" />
+            <LeftMenu />
           </div>
-          <div className="w-full lg:w-[70%] xl:w-[50%]">
+          <div className="w-full max-w-3xl lg:w-[70%] xl:w-[60%]">
             <div className="flex flex-col gap-6">
-              {/* <Stories /> */}
-               <AddPost />
-               <Feed />
+              <AddPost />
+              <Feed />
             </div>
           </div>
-          {/*<div className="hidden w-[30%] bg-sky-500 lg:block">*/}
-          {/*  /!* <RightMenu /> *!/*/}
-          {/*  <button onClick={modal.open}>click me</button>*/}
-          {/*</div>*/}
+          <div className="w-[20%] lg:block">
+            <ProfileCard />
+          </div>
         </div>
       </div>
       <Modal isOpen={modal.isOpen} onClose={modal.close}>

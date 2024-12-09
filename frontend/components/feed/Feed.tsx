@@ -49,7 +49,7 @@ const Feed = () => {
   ];
 
   return (
-    <div className="mx-auto max-w-2xl space-y-6">
+    <div className="mx-auto space-y-6">
       {feedData.map((post) => (
         <div key={post.id} className="space-y-4 rounded-lg bg-white p-4 shadow">
           {/* User Info */}

@@ -1,18 +1,7 @@
-// const user = {
-//   id: "1",
-//   cover: "/noCover.png",
-//   avatar: "/noAvatar.png",
-//   name: "John",
-//   surname: "Doe",
-//   username: "johndoe",
-//   _count: {
-//     followers: 123,
-//   },
-// };
+import { useWallet } from "@solana/wallet-adapter-react";
 import Image from "next/image";
 import Link from "next/link";
-import {useEffect, useState} from "react";
-import {useWallet} from "@solana/wallet-adapter-react";
+import { useEffect, useState } from "react";
 
 // const User = {
 //   "id": "0a2c07fa-6f73-4b6a-b7cf-77370951cb3e",
@@ -24,18 +13,40 @@ import {useWallet} from "@solana/wallet-adapter-react";
 //   "updatedAt":
 // }
 
+// const user = {
+//   id: "1",
+//   cover: "/noCover.png",
+//   avatar: "/noAvatar.png",
+//   name: "John",
+//   surname: "Doe",
+//   username: "johndoe",
+//   _count: {
+//     followers: 123,
+//   },
+// };
+
 const ProfileCard = () => {
   // const { userId } = auth();
-  const [user, setUser] = useState(null);
+  interface User {
+    id: string;
+    publicKey: string;
+    username: string;
+    images: string | null;
+    email: string;
+    createdAt: string;
+    updatedAt: string;
+  }
+
+  const [user, setUser] = useState<User | null>(null);
   const publicKey = useWallet().publicKey;
 
   useEffect(() => {
     const fetchUser = async () => {
-      const response = await fetch('http://localhost:8080/api/v1/users/login', {
-        method: 'POST',
+      const response = await fetch("http://localhost:8080/api/v1/users/login", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
+          "Content-Type": "application/json",
+          Accept: "application/json",
         },
         body: JSON.stringify({
           publicKey: publicKey,
@@ -47,7 +58,7 @@ const ProfileCard = () => {
       setUser(data);
     };
     fetchUser();
-  }, [user])
+  }, [user]);
   if (!user) return null;
 
   return (
@@ -68,9 +79,7 @@ const ProfileCard = () => {
         />
       </div>
       <div className="flex h-20 flex-col items-center gap-2">
-        <span className="font-semibold">
-          {user?.username}
-        </span>
+        <span className="font-semibold">{user?.username}</span>
         <div className="flex items-center gap-4">
           <div className="flex">
             <Image
@@ -95,9 +104,7 @@ const ProfileCard = () => {
               className="h-3 w-3 rounded-full object-cover"
             />
           </div>
-          <span className="text-xs text-gray-500">
-            12 Followers
-          </span>
+          <span className="text-xs text-gray-500">12 Followers</span>
         </div>
         <Link href={`/profile`}>
           <button className="rounded-md bg-blue-500 p-2 text-xs text-white">
