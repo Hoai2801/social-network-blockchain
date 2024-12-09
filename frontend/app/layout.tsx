@@ -1,6 +1,7 @@
-import AppWalletProvider from "@/components/ui/AppWalletProvider";
+import { ThemeProvider } from "@/components/theme/theme-context";
+import AppWalletProvider from "@/components/ui/app-wallet-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import Navbar from "@/layout/Navbar";
+import Navbar from "@/layout/navbar";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import React from "react";
@@ -33,16 +34,18 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} min-h-screen bg-gray-100 antialiased`}
       >
-        <AppWalletProvider>
-          <div className="relative">
-            {/* sticky not working */}
-            <Navbar />
-            <div className={`pt-24`}>
+        <ThemeProvider>
+          <AppWalletProvider>
+            <div className="relative">
+              {/* sticky not working */}
+              <Navbar />
               <Toaster richColors closeButton position="top-right" />
-              <TooltipProvider>{children}</TooltipProvider>
+              <div className={`pt-16`}>
+                <TooltipProvider>{children}</TooltipProvider>
+              </div>
             </div>
-          </div>
-        </AppWalletProvider>
+          </AppWalletProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

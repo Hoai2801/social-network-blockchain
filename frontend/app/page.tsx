@@ -1,6 +1,6 @@
 "use client";
 
-import LeftMenu from "@/components/page/leftMenu/LeftMenu";
+import LeftMenu from "@/components/page/left-menu/left-menu";
 import Modal from "@/components/ui/modal";
 import useToggle from "@/hooks/use-state-toggle";
 import Feed from "@/components/feed/Feed";

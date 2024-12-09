@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import Ad from "../Ad";
-import ProfileCard from "./ProfileCard";
+import Ad from "../ad";
+import ProfileCard from "./profile-card";
 
 const menuItems = [
   { href: "/", src: "/posts.png", label: "My Posts" },
