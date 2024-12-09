@@ -34,18 +34,18 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} min-h-screen bg-gray-100 antialiased`}
       >
-        <AppWalletProvider>
-          <div className="relative">
-            {/* sticky not working */}
-            <Navbar />
-            <Toaster richColors closeButton position="top-right" />
-            <div className={`pt-16`}>
-              <ThemeProvider>
+        <ThemeProvider>
+          <AppWalletProvider>
+            <div className="relative">
+              {/* sticky not working */}
+              <Navbar />
+              <Toaster richColors closeButton position="top-right" />
+              <div className={`pt-16`}>
                 <TooltipProvider>{children}</TooltipProvider>
-              </ThemeProvider>
+              </div>
             </div>
-          </div>
-        </AppWalletProvider>
+          </AppWalletProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

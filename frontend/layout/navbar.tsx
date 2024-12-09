@@ -1,23 +1,14 @@
 "use client";
+import ThemeSwitcher from "@/components/theme/theme-switcher";
 import Sidebar from "@/components/ui/sidebar";
 import useToggle from "@/hooks/use-state-toggle";
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
-import { Menu } from "lucide-react";
+import { ArrowRight, Menu } from "lucide-react";
 import Link from "next/link";
-import "./style.css";
 
 const Navbar = () => {
   const sidebar = useToggle();
   return (
-    // <div className="fixed top-0 z-50 w-full bg-gray-800 py-4">
-    //   <div className="container flex items-center justify-between text-white shadow-md">
-    //     {/*sticky not working*/}
-    //     <Link href="/">
-    //       <h1 className="text-2xl font-bold">SecMarket-ing</h1>
-    //     </Link>
-    //     <WalletMultiButton className="rounded bg-blue-600 px-4 py-2 text-white transition duration-300 hover:bg-blue-700" />
-    //   </div>
-    // </div>
     <>
       <div className="fixed z-50 h-[66px] w-full border-b bg-white px-5 py-4">
         <div className="container flex w-full justify-between">
@@ -37,12 +28,50 @@ const Navbar = () => {
       </div>
       <Sidebar isOpen={sidebar.isOpen} onClose={sidebar.close}>
         <div className="flex w-full flex-col">
-          <div className="flex flex-col">
-            <p className="bg-[#ebeff8] p-2.5 pl-6 text-sm">Wallet</p>
-            <div className="flex items-center gap-3.5 p-2.5 pl-6 transition-colors hover:bg-[#f2f3f5]">
-              <WalletMultiButton className="a bg-transparent p-0 text-black" />
+          {[
+            {
+              title: "Actions",
+              content: (
+                <div
+                  className="flex items-center gap-3.5 p-2.5 pl-6 transition-colors hover:bg-[#ededed]"
+                  onClick={sidebar.close}
+                >
+                  <ThemeSwitcher />
+                </div>
+              ),
+            },
+            {
+              title: "Navigation",
+              content: (
+                <div
+                  className="flex items-center p-2.5 pl-6 transition-colors hover:bg-[#ededed]"
+                  onClick={sidebar.close}
+                >
+                  <Link href="/" className="w-full transition-all hover:pl-2">
+                    <div className="flex items-center gap-2.5 text-[#4479e2]">
+                      <ArrowRight size={22} strokeWidth={1} />
+                      <p>Home</p>
+                    </div>
+                  </Link>
+                </div>
+              ),
+            },
+            {
+              title: "Wallet",
+              content: (
+                <div className="flex items-center justify-center p-2.5 transition-colors hover:bg-[#ededed]">
+                  <WalletMultiButton />
+                </div>
+              ),
+            },
+          ].map((section, index) => (
+            <div key={index} className="flex flex-col">
+              <p className="bg-[#ebeff8] p-2.5 pl-6 text-sm text-[#4f576c]">
+                {section.title}
+              </p>
+              {section.content}
             </div>
-          </div>
+          ))}
         </div>
       </Sidebar>
     </>
