@@ -38,10 +38,10 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
             onClick={handleBackdropClick}
           >
             <motion.div
-              initial={{ scale: 0.5 }}
+              initial={{ scale: 0.7 }}
               animate={{ scale: 1 }}
-              exit={{ scale: 0.8 }}
-              transition={{ duration: 0.3, type: "spring" }}
+              exit={{ scale: 0.9 }}
+              transition={{ duration: 0.5, type: "spring", ease: "EaseOut" }}
               className="border-border relative mx-4 flex items-center justify-center rounded border bg-black p-8 text-white shadow-lg"
             >
               <button
