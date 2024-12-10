@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -68,11 +69,12 @@ const Layout = ({
               <li key={item.href} className="mr-6">
                 <Link
                   href={item.href}
-                  className={`inline-block px-4 py-2 ${
+                  className={cn(
+                    "inline-block px-4 py-2",
                     pathname === item.href
                       ? "border-b-2 border-blue-600 font-semibold text-blue-600"
-                      : "text-gray-600 hover:text-blue-600"
-                  }`}
+                      : "text-gray-600 hover:text-blue-600",
+                  )}
                 >
                   {item.label}
                 </Link>
