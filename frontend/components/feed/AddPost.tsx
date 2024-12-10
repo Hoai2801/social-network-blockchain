@@ -2,7 +2,7 @@ import React from 'react';
 
 const AddPost = () => {
     return (
-        <div className="bg-white shadow-md rounded-lg p-4 space-y-4">
+        <div className="bg-white shadow-md rounded-lg p-4 w-2xl">
             {/* User input section */}
             <div className="flex items-center gap-3">
                 {/* Profile Picture */}

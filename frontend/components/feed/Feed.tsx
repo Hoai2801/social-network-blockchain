@@ -13,9 +13,13 @@ const Feed = () => {
             content: {
                 type: "album",
                 description:
-                    "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores, cum cupiditate deleniti ducimus...",
+                    "SelfieCats #0078\n" +
+                    "\n" +
+                    "This exclusive NFT could be yours. You have 24-hours! Submit your bid at 👉 mydesospace.com/bid4nft #NFTAuction #CryptoArt\n" +
+                    "\n" +
+                    "Boost your influence! Buy $MyDeSoSpace tokens at openfund.com/trade/MyDeSoSpace and take your bids to the next level!",
                 image:
-                    "https://images.unsplash.com/photo-1530841377377-3ff06c0ca713?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+                    "https://nzgoxd3convnctpkh1muq4ci-udhcdhabpfr-tkdvewnfvenbvktp3berct6wkb.arweave.net/3AtBEL-MrUZcadKh3cLz0y9QJHUTiy3CGALrQiwLBQk",
             },
             timestamp: "2 hours ago",
             interactions: {
@@ -36,7 +40,7 @@ const Feed = () => {
                 type: "photo",
                 description: "Amazing sunset from yesterday!",
                 image:
-                    "https://images.unsplash.com/photo-1528977695562-30afabf3e5bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+                    "https://nzgoxd3convnctpkh1muq4ci-udhcdhabpfr-tkdvewnfvenbvktp3berct6wkb.arweave.net/3AtBEL-MrUZcadKh3cLz0y9QJHUTiy3CGALrQiwLBQk",
             },
             timestamp: "5 hours ago",
             interactions: {

@@ -1,36 +1,51 @@
 import NFTCard from "@/components/ui/nft-card";
 import Link from "next/link";
+import ItemCard from "@/components/ui/new-nft-cart";
 
 const Marketplace = () => {
-  const nfts = [
+  const items = [
     {
-      id: 1,
-      image: "https://picsum.photos/200",
-      title: "Galaxy Warrior",
-      description: "A unique digital warrior from the galaxy collection.",
-      price: "0.5",
+      imageUrl: "https://shreethemes.in/giglink/landing/assets/images/items/6.jpg",
+      title: "Genuine Undead #3902",
+      price: 3.5,
+      highestBid: 3.55,
+      buyLink: "item-detail.html",
     },
     {
-      id: 2,
-      image: "https://picsum.photos/200",
-      title: "Cyber Punk 2077",
-      description: "Limited edition cyberpunk character NFT.",
-      price: "1.2",
+      imageUrl: "https://shreethemes.in/giglink/landing/assets/images/items/2.jpg",
+      title: "Genuine Undead #1234",
+      price: 4.2,
+      highestBid: 4.5,
+      buyLink: "item-detail.html",
     },
     {
-      id: 3,
-      image: "https://picsum.photos/200",
-      title: "Abstract Art #5",
-      description: "One of a kind abstract art piece in the digital world.",
-      price: "0.75",
+      imageUrl: "https://shreethemes.in/giglink/landing/assets/images/items/3.jpg",
+      title: "Genuine Undead #1234",
+      price: 4.2,
+      highestBid: 4.5,
+      buyLink: "item-detail.html",
     },
     {
-      id: 4,
-      image: "https://picsum.photos/200",
-      title: "Pixelated King",
-      description: "Pixel art depiction of a digital king.",
-      price: "2.0",
+      imageUrl: "https://shreethemes.in/giglink/landing/assets/images/items/4.jpg",
+      title: "Genuine Undead #1234",
+      price: 4.2,
+      highestBid: 4.5,
+      buyLink: "item-detail.html",
     },
+    {
+      imageUrl: "https://shreethemes.in/giglink/landing/assets/images/items/5.jpg",
+      title: "Genuine Undead #1234",
+      price: 4.2,
+      highestBid: 4.5,
+      buyLink: "item-detail.html",
+      },
+      {
+        imageUrl: "https://shreethemes.in/giglink/landing/assets/images/items/6.jpg",
+        title: "Genuine Undead #1234",
+        price: 4.2,
+        highestBid: 4.5,
+        buyLink: "item-detail.html",
+        },
   ];
   return (
     <div className="container p-5">
@@ -62,14 +77,15 @@ const Marketplace = () => {
         </Link>
       </div>
       <div className="mt-5 flex w-full flex-wrap gap-5">
-        {nfts.map((nft) => (
-          <NFTCard
-            key={nft.id}
-            image={nft.image}
-            title={nft.title}
-            price={nft.price}
-            isSelling={false}
-          />
+        {items.map((item, index) => (
+            <ItemCard
+                key={index}
+                imageUrl={item.imageUrl}
+                title={item.title}
+                price={item.price}
+                highestBid={item.highestBid}
+                buyLink={item.buyLink}
+            />
         ))}
       </div>
     </div>

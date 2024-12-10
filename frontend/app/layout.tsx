@@ -7,6 +7,7 @@ import localFont from "next/font/local";
 import React from "react";
 import { Toaster } from "sonner";
 import "./globals.css";
+import Footer from "@/layout/Footer";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -40,9 +41,10 @@ export default function RootLayout({
               {/* sticky not working */}
               <Navbar />
               <Toaster richColors closeButton position="top-right" />
-              <div className={`pt-16`}>
+              <div className={`pt-16 pb-16`}>
                 <TooltipProvider>{children}</TooltipProvider>
               </div>
+              <Footer />
             </div>
           </AppWalletProvider>
         </ThemeProvider>
