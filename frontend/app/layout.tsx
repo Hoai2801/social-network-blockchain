@@ -7,7 +7,7 @@ import localFont from "next/font/local";
 import React from "react";
 import { Toaster } from "sonner";
 import "./globals.css";
-import Footer from "@/layout/Footer";
+import Footer from "@/layout/footer";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",

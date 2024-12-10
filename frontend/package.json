@@ -33,22 +33,22 @@
     "next": "15.0.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "sonner": "^1.7.0"
+    "sonner": "^1.7.1"
   },
   "devDependencies": {
-    "@clerk/nextjs": "^6.7.1",
+    "@clerk/nextjs": "^6.8.2",
     "@types/node": "^20.17.9",
-    "@types/react": "^18.3.12",
-    "@types/react-dom": "^18.3.1",
+    "@types/react": "^18.3.14",
+    "@types/react-dom": "^18.3.3",
     "clsx": "^2.1.1",
     "eslint": "^8.57.1",
     "eslint-config-next": "15.0.3",
-    "framer-motion": "^11.13.1",
+    "framer-motion": "^11.13.3",
     "postcss": "^8.4.49",
     "prettier": "^3.4.2",
     "prettier-plugin-tailwindcss": "^0.6.9",
     "tailwind-merge": "^2.5.5",
-    "tailwindcss": "^3.4.15",
+    "tailwindcss": "^3.4.16",
     "tailwindcss-animate": "^1.0.7",
     "typescript": "^5.7.2"
   }
