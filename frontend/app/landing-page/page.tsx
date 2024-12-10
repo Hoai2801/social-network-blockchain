@@ -1,4 +1,4 @@
-import Magnetic from "@/components/magnetic/magnetic";
+import RoundedButton from "@/components/rounded-button/rounded-button";
 
 const MyComponent = () => {
   const items = [
@@ -86,14 +86,11 @@ const MyComponent = () => {
               </p>
 
               <div className="my-8 flex justify-center">
-                <Magnetic>
-                  <a
-                    href="explore-one.html"
-                    className="btn rounded-full border-violet-600 bg-violet-600 px-4 py-3 text-white hover:border-violet-700 hover:bg-violet-700"
-                  >
-                    Explore now
-                  </a>
-                </Magnetic>
+                <a href="explore-one.html" className="btn">
+                  <RoundedButton backgroundColor="#9022f2">
+                    <p className="z-20">Explore now</p>
+                  </RoundedButton>
+                </a>
               </div>
             </div>
           </div>
@@ -104,7 +101,7 @@ const MyComponent = () => {
           </div>
         </div>
       </section>
-      <div className="flex flex-wrap items-center justify-center gap-5 pb-5">
+      <div className="container flex flex-wrap items-center justify-center gap-5 pb-5">
         {items.map((item, index) => (
           <div
             key={index}
