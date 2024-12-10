@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import Ad from "../ad";
+import Ad from "./ad";
 
 const menuItems = [
   { href: "/", src: "/posts.png", label: "My Posts" },

@@ -46,7 +46,7 @@ const Footer = () => {
             <div className="-mt-24 grid grid-cols-1 gap-[30px] md:grid-cols-12">
               <div className="md:col-span-12 lg:col-span-4">
                 <a href="#" className="text-[22px] focus:outline-none">
-                  <img src="assets/images/logo-white.png" alt="" />
+                  <img src="/assets/images/logo-white.png" alt="" />
                 </a>
                 <p className="mt-6 text-gray-300">
                   Buy, sell and discover exclusive digital assets by the top
@@ -171,14 +171,14 @@ const Footer = () => {
                 <ul className="mt-6 list-none">
                   <li className="inline">
                     <img
-                      src="assets/images/app.png"
+                      src="/assets/images/app.png"
                       className="inline-block h-9"
                       alt=""
                     />
                   </li>
                   <li className="inline">
                     <img
-                      src="assets/images/playstore.png"
+                      src="/assets/images/playstore.png"
                       className="inline-block h-9"
                       alt=""
                     />

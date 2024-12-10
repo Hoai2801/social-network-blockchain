@@ -2,8 +2,8 @@
 
 import AddPost from "@/components/feed/add-post";
 import Feed from "@/components/feed/feed";
-import LeftMenu from "@/components/page/left-menu/left-menu";
-import ProfileCard from "@/components/page/left-menu/profile-card";
+import LeftMenu from "@/components/feed/left-menu";
+import ProfileCard from "@/components/feed/profile-card";
 import Modal from "@/components/ui/modal";
 import useToggle from "@/hooks/use-state-toggle";
 
