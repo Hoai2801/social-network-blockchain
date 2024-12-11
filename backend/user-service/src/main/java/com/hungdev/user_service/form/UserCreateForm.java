@@ -15,7 +15,7 @@ public class UserCreateForm {
     @NotBlank(message = "Địa chỉ ví không được để trống")
     private String publicKey;
 
-    @NotBlank(message = "Tên người dùng không được để trống")
+//    @NotBlank(message = "Tên người dùng không được để trống")
     @Length(max = 100, message = "Tên người dùng có tối đa 100 kí tự")
     private String username;
     
@@ -23,9 +23,9 @@ public class UserCreateForm {
 
     private String images;
 
-    @NotBlank(message = "Email không được để trống")
+//    @NotBlank(message = "Email không được để trống")
     @Length(max = 255, message = "Email có tối đa 255 kí tự")
-    @Email
+//    @Email
     private String email;
 
 

@@ -3,6 +3,7 @@ package com.hungdev.user_service.service;
 import com.hungdev.user_service.dto.UserDto;
 import com.hungdev.user_service.form.UserCreateForm;
 import com.hungdev.user_service.form.UserUpdateForm;
+import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -18,4 +19,6 @@ public interface UserService {
     UserDto update(UserUpdateForm form, UUID id) throws Exception;
 
     void deleteById(UUID id);
+
+    UserDto login(@Valid UserCreateForm form);
 }

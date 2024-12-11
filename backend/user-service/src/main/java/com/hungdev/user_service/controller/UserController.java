@@ -27,6 +27,12 @@ public class UserController {
     public UserDto findById(@PathVariable UUID id) {
         return userService.findById(id);
     }
+    
+    @PostMapping("/api/v1/users/login")
+    public UserDto login(@Valid @RequestBody UserCreateForm form) {
+        System.out.println("login");
+        return userService.login(form);
+    }
 
     @PostMapping("/api/v1/users")
     public UserDto create(@Valid @RequestBody UserCreateForm form) {

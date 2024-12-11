@@ -51,4 +51,22 @@ public class UserServiceImpl implements UserService {
     public void deleteById(UUID id) {
         userRepository.deleteById(id);
     }
+
+    @Override
+    public UserDto login(UserCreateForm form) {
+        // check if public key is exists
+        if (userRepository.existsByPublicKey(form.getPublicKey())) {
+            var user = userRepository.findByPublicKey(form.getPublicKey());
+            return modelMapper.map(user, UserDto.class);
+        }
+        // if not exists, create new user
+        var savedUser = User.builder()
+                .email(!form.getEmail().isEmpty() ? form.getEmail() : "")
+                .publicKey(form.getPublicKey())
+                .password(!form.getPassword().isEmpty() ? form.getPassword() : "")
+                .username(!form.getUsername().isEmpty() ? form.getUsername() : "unknown")
+                .build();
+        userRepository.save(savedUser);
+        return modelMapper.map(savedUser, UserDto.class);
+    }
 }
