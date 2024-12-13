@@ -1,0 +1,6 @@
+INSERT INTO users (id, public_key, username, images, email, created_at, updated_at) VALUES
+                                                                                        (UNHEX(REPLACE(UUID(), '-', '')), '0x1234567890abcdef1234567890abcdef12345678', 'user1', 'image1.png', 'user1@example.com', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+                                                                                        (UNHEX(REPLACE(UUID(), '-', '')), '0xabcdef1234567890abcdef1234567890abcdef12', 'user2', 'image2.png', 'user2@example.com', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+                                                                                        (UNHEX(REPLACE(UUID(), '-', '')), '0x7890abcdef1234567890abcdef1234567890abcd', 'user3', 'image3.png', 'user3@example.com', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+                                                                                        (UNHEX(REPLACE(UUID(), '-', '')), '0x4567890abcdef1234567890abcdef1234567890ab', 'user4', 'image4.png', 'user4@example.com', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+                                                                                        (UNHEX(REPLACE(UUID(), '-', '')), '0xcdef1234567890abcdef1234567890abcdef1234', 'user5', 'image5.png', 'user5@example.com', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
