@@ -8,7 +8,7 @@ import localFont from "next/font/local";
 import React from "react";
 import { Toaster } from "sonner";
 import "./globals.css";
-
+import "@fortawesome/fontawesome-svg-core/styles.css"; // Import FontAwesome CSS
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
