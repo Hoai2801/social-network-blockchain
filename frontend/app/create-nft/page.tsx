@@ -1,13 +1,13 @@
 "use client";
-import React, { useState } from "react";
-import { useWallet } from '@solana/wallet-adapter-react';
+import { useWallet } from "@solana/wallet-adapter-react";
 import axios from "axios";
+import React, { useState } from "react";
 const PINATA_API_URL = "https://api.pinata.cloud/pinning/pinFileToIPFS";
-const PINATA_API_KEY = process.env.NEXT_PUBLIC_PINATA_API_KEY
-const PINATA_SECRET_API_KEY = process.env.NEXT_PUBLIC_PINATA_SECRET_API_KEY
+const PINATA_API_KEY = process.env.NEXT_PUBLIC_PINATA_API_KEY;
+const PINATA_SECRET_API_KEY = process.env.NEXT_PUBLIC_PINATA_SECRET_API_KEY;
 
 const CreateNFTPage = () => {
-  console.log(PINATA_API_KEY)
+  console.log(PINATA_API_KEY);
   const [traits, setTraits] = useState([{ key: "abc", value: "2" }]);
   const [file, setFile] = useState<File | null>(null);
   const [formData, setFormData] = useState({
@@ -31,8 +31,8 @@ const CreateNFTPage = () => {
       const response = await axios.post(PINATA_API_URL, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
-          'pinata_api_key': PINATA_API_KEY,
-          'pinata_secret_api_key': PINATA_SECRET_API_KEY,
+          pinata_api_key: PINATA_API_KEY,
+          pinata_secret_api_key: PINATA_SECRET_API_KEY,
         },
       });
 
@@ -46,7 +46,6 @@ const CreateNFTPage = () => {
     }
   };
 
-
   const createNft = async () => {
     if (!formData.imageUrl) {
       console.error("No image URL selected.");
@@ -55,6 +54,10 @@ const CreateNFTPage = () => {
 
     try {
       // Upload the image to IPFS first
+      if (!file) {
+        console.error("No file selected.");
+        return;
+      }
       const imageUrl = await uploadImageToIPFS(file);
       // Prepare metadata
       const attributes = traits.map((trait) => ({
@@ -62,9 +65,9 @@ const CreateNFTPage = () => {
         value: trait.value,
       }));
       const request = {
-        jsonrpc: '2.0',
-        id: 'helius-test',
-        method: 'mintCompressedNft',
+        jsonrpc: "2.0",
+        id: "helius-test",
+        method: "mintCompressedNft",
         params: {
           name: formData.name,
           symbol: formData.symbol,
@@ -75,19 +78,22 @@ const CreateNFTPage = () => {
           externalUrl: formData.externalUrl,
           sellerFeeBasisPoints: formData.sellerFeeBasisPoints,
         },
-      }
-      console.log(request)
+      };
+      console.log(request);
 
       // Make Helius API request to mint the NFT
-      const response = await fetch(`https://devnet.helius-rpc.com/?api-key=${process.env.NEXT_PUBLIC_HELIOUS_API_KEY}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      const response = await fetch(
+        `https://devnet.helius-rpc.com/?api-key=${process.env.NEXT_PUBLIC_HELIOUS_API_KEY}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(request),
         },
-        body: JSON.stringify(request),
-      });
+      );
       const { result } = await response.json();
-      console.log('Minted asset: ', result.assetId);
+      console.log("Minted asset: ", result.assetId);
 
       // console.log('Minted asset: ', heliusResponse.data.result.assetId);
     } catch (error) {
@@ -110,7 +116,7 @@ const CreateNFTPage = () => {
   };
 
   const handleInputChange = (
-      e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -131,127 +137,131 @@ const CreateNFTPage = () => {
   };
 
   return (
-      <div className="flex min-h-screen items-center justify-center bg-black p-6 text-white">
-        <div className="w-full max-w-4xl">
-          <h1 className="mb-4 text-2xl font-bold">Create an NFT</h1>
-          <p className="mb-8 text-gray-400">
-            Once your item is minted you will not be able to change any of its information.
-          </p>
-          <form onSubmit={handleSubmit}>
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-              {/* Media Upload */}
-              <div className="flex flex-col items-center justify-center border-2 border-dashed border-gray-500 p-6">
-                <p className="text-center">Drag and drop media</p>
-                <p className="text-center text-sm text-gray-400">Max size: 50MB</p>
-                <p className="text-center text-sm text-gray-400">
-                  JPG, PNG, GIF, SVG, MP4
-                </p>
-                <input type="file" className="mt-4" onChange={handleFileChange} />
-              </div>
+    <div className="flex min-h-screen items-center justify-center bg-black p-6 text-white">
+      <div className="w-full max-w-4xl">
+        <h1 className="mb-4 text-2xl font-bold">Create an NFT</h1>
+        <p className="mb-8 text-gray-400">
+          Once your item is minted you will not be able to change any of its
+          information.
+        </p>
+        <form onSubmit={handleSubmit}>
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+            {/* Media Upload */}
+            <div className="flex flex-col items-center justify-center border-2 border-dashed border-gray-500 p-6">
+              <p className="text-center">Drag and drop media</p>
+              <p className="text-center text-sm text-gray-400">
+                Max size: 50MB
+              </p>
+              <p className="text-center text-sm text-gray-400">
+                JPG, PNG, GIF, SVG, MP4
+              </p>
+              <input type="file" className="mt-4" onChange={handleFileChange} />
+            </div>
 
-              {/* Form */}
+            {/* Form */}
+            <div>
+              <div className="mb-4">
+                <label className="mb-2 block text-sm font-medium">
+                  Collection *
+                </label>
+                <button className="w-full rounded border border-gray-700 bg-gray-800 p-2">
+                  Create a new collection
+                </button>
+              </div>
+              <div className="mb-4">
+                <label className="mb-2 block text-sm font-medium">Name *</label>
+                <input
+                  type="text"
+                  name="name"
+                  className="w-full rounded border border-gray-700 bg-gray-800 p-2"
+                  placeholder="Name your NFT"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className="mb-4">
+                <label className="mb-2 block text-sm font-medium">
+                  Supply *
+                </label>
+                <input
+                  type="number"
+                  name="supply"
+                  className="w-full rounded border border-gray-700 bg-gray-800 p-2"
+                  placeholder="1"
+                  value={formData.supply}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className="mb-4">
+                <label className="mb-2 block text-sm font-medium">
+                  Description
+                </label>
+                <textarea
+                  name="description"
+                  className="w-full rounded border border-gray-700 bg-gray-800 p-2"
+                  placeholder="Enter a description"
+                  value={formData.description}
+                  onChange={handleInputChange}
+                ></textarea>
+              </div>
+              <div className="mb-4">
+                <label className="mb-2 block text-sm font-medium">
+                  External link
+                </label>
+                <input
+                  type="url"
+                  name="externalUrl"
+                  className="w-full rounded border border-gray-700 bg-gray-800 p-2"
+                  placeholder="https://collection.io/item/123"
+                  value={formData.externalUrl}
+                  onChange={handleInputChange}
+                />
+              </div>
               <div>
-                <div className="mb-4">
-                  <label className="mb-2 block text-sm font-medium">
-                    Collection *
-                  </label>
-                  <button className="w-full rounded border border-gray-700 bg-gray-800 p-2">
-                    Create a new collection
-                  </button>
-                </div>
-                <div className="mb-4">
-                  <label className="mb-2 block text-sm font-medium">Name *</label>
-                  <input
+                <label className="mb-2 block text-sm font-medium">Traits</label>
+                {traits.map((trait, index) => (
+                  <div key={index} className="mb-2 flex items-center gap-2">
+                    <input
                       type="text"
-                      name="name"
-                      className="w-full rounded border border-gray-700 bg-gray-800 p-2"
-                      placeholder="Name your NFT"
-                      value={formData.name}
-                      onChange={handleInputChange}
-                  />
-                </div>
-                <div className="mb-4">
-                  <label className="mb-2 block text-sm font-medium">Supply *</label>
-                  <input
-                      type="number"
-                      name="supply"
-                      className="w-full rounded border border-gray-700 bg-gray-800 p-2"
-                      placeholder="1"
-                      value={formData.supply}
-                      onChange={handleInputChange}
-                  />
-                </div>
-                <div className="mb-4">
-                  <label className="mb-2 block text-sm font-medium">
-                    Description
-                  </label>
-                  <textarea
-                      name="description"
-                      className="w-full rounded border border-gray-700 bg-gray-800 p-2"
-                      placeholder="Enter a description"
-                      value={formData.description}
-                      onChange={handleInputChange}
-                  ></textarea>
-                </div>
-                <div className="mb-4">
-                  <label className="mb-2 block text-sm font-medium">
-                    External link
-                  </label>
-                  <input
-                      type="url"
-                      name="externalUrl"
-                      className="w-full rounded border border-gray-700 bg-gray-800 p-2"
-                      placeholder="https://collection.io/item/123"
-                      value={formData.externalUrl}
-                      onChange={handleInputChange}
-                  />
-                </div>
-                <div>
-                  <label className="mb-2 block text-sm font-medium">Traits</label>
-                  {traits.map((trait, index) => (
-                      <div key={index} className="mb-2 flex items-center gap-2">
-                        <input
-                            type="text"
-                            className="flex-1 rounded border border-gray-700 bg-gray-800 p-2"
-                            placeholder="Key"
-                            value={trait.key}
-                            onChange={(e) => updateTrait(index, "key", e.target.value)}
-                        />
-                        <input
-                            type="text"
-                            className="flex-1 rounded border border-gray-700 bg-gray-800 p-2"
-                            placeholder="Value"
-                            value={trait.value}
-                            onChange={(e) =>
-                                updateTrait(index, "value", e.target.value)
-                            }
-                        />
-                        <button
-                            className="rounded bg-red-600 p-2"
-                            onClick={() => removeTrait(index)}
-                        >
-                          ✕
-                        </button>
-                      </div>
-                  ))}
-                  <button
-                      className="mt-2 w-full rounded border border-gray-700 bg-gray-800 p-2"
-                      onClick={addTrait}
-                  >
-                    + Add trait
-                  </button>
-                </div>
+                      className="flex-1 rounded border border-gray-700 bg-gray-800 p-2"
+                      placeholder="Key"
+                      value={trait.key}
+                      onChange={(e) =>
+                        updateTrait(index, "key", e.target.value)
+                      }
+                    />
+                    <input
+                      type="text"
+                      className="flex-1 rounded border border-gray-700 bg-gray-800 p-2"
+                      placeholder="Value"
+                      value={trait.value}
+                      onChange={(e) =>
+                        updateTrait(index, "value", e.target.value)
+                      }
+                    />
+                    <button
+                      className="rounded bg-red-600 p-2"
+                      onClick={() => removeTrait(index)}
+                    >
+                      ✕
+                    </button>
+                  </div>
+                ))}
+                <button
+                  className="mt-2 w-full rounded border border-gray-700 bg-gray-800 p-2"
+                  onClick={addTrait}
+                >
+                  + Add trait
+                </button>
               </div>
             </div>
-            <button
-                type="submit"
-                className="mt-6 w-full rounded bg-blue-600 p-2"
-            >
-              Create
-            </button>
-          </form>
-        </div>
+          </div>
+          <button type="submit" className="mt-6 w-full rounded bg-blue-600 p-2">
+            Create
+          </button>
+        </form>
       </div>
+    </div>
   );
 };
 

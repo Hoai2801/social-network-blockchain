@@ -1,13 +1,12 @@
 "use client";
 
-import formatTime from "@/hooks/use-format-time";
-import { create } from "domain";
-import React, { useEffect, useState } from "react";
+import { formatTime } from "@/lib/utils";
+import React from "react";
 
 // Type definition for chat item props
 interface ChatItemProps {
   id: number;
-  participants: [];
+  participants: { userId: string }[];
   type: string;
   thumbnail: string;
   name: string;

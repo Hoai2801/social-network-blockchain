@@ -15,7 +15,7 @@ import ChatComponent from "./Message";
 interface ChatContentProps {
   chat: {
     _id: string;
-    participants: [];
+    participants: { userId: string }[];
     name: string;
     type: string;
     createdAt: string;
@@ -273,7 +273,7 @@ export default function ChatContent({ chat }: ChatContentProps) {
         </div>
         <div className="ml-4">
           <h2 className="text-lg font-semibold">
-            {chat.type == "group" ? chat.name : receivers[0]?.userId}
+            {chat.type === "group" ? chat.name : receivers[0]?.userId}
           </h2>
           <p className="text-sm text-gray-500">
             {chat.isOnline ? (

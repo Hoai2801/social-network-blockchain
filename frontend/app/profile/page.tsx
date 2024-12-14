@@ -1,34 +1,44 @@
 "use client";
 
 import NFTCard from "@/components/ui/nft-card";
-import { createUmi } from '@metaplex-foundation/umi-bundle-defaults';
-import { dasApi } from '@metaplex-foundation/digital-asset-standard-api';
-import { useEffect, useState } from "react";
-import { useWallet } from "@solana/wallet-adapter-react";
-import {
-  PublicKey,
-  Transaction,
-  Connection,
-  SendTransactionError,
-  SystemProgram
-} from "@solana/web3.js";
 import { sendTransaction } from "@/hooks/sendTransaction";
-import {TOKEN_PROGRAM_ID} from "@solana/spl-token"; // Assuming this is correctly implemented
+import { dasApi } from "@metaplex-foundation/digital-asset-standard-api";
+import { createUmi } from "@metaplex-foundation/umi-bundle-defaults";
+import { TOKEN_PROGRAM_ID } from "@solana/spl-token"; // Assuming this is correctly implemented
+import { useWallet } from "@solana/wallet-adapter-react";
+import { Connection, PublicKey, Transaction } from "@solana/web3.js";
+import { useEffect, useState } from "react";
 
 const Profile = () => {
-  const umi = createUmi('https://api.devnet.solana.com').use(dasApi());
+  const umi = createUmi("https://api.devnet.solana.com").use(dasApi());
   const wallet = useWallet();
   const owner = wallet.publicKey as PublicKey;
-  const [assets, setAssets] = useState([]);
+  interface Asset {
+    id: string;
+    content: {
+      metadata: {
+        name: string;
+        attributes: { trait_type: string; value: string }[];
+      };
+      links: {
+        image: string;
+      };
+    };
+  }
+
+  const [assets, setAssets] = useState<Asset[]>([]);
   const [isListing, setIsListing] = useState(false); // Manage loading state during the listing process
   const [price, setPrice] = useState(""); // Store price input
-  const connection = new Connection('https://api.devnet.solana.com', 'confirmed');
+  const connection = new Connection(
+    "https://api.devnet.solana.com",
+    "confirmed",
+  );
 
   const fetchAssets = async () => {
     try {
       const fetchedAssets = await umi.rpc.getAssetsByOwner({
         owner,
-        limit: 10
+        limit: 10,
       });
       setAssets(fetchedAssets.items);
       console.log("Fetched Assets:", fetchedAssets);
@@ -42,7 +52,6 @@ const Profile = () => {
       fetchAssets();
     }
   }, [owner]);
-
 
   const listNftForSale = async (nftId: string) => {
     if (!wallet || !wallet.connected || !owner) {
@@ -59,7 +68,9 @@ const Profile = () => {
 
     try {
       // Replace with actual program ID
-      const programId = new PublicKey("H575R3gG2tnTFF8Z658UkqSvtgTY86yRc5c7KVCStRBd");
+      const programId = new PublicKey(
+        "H575R3gG2tnTFF8Z658UkqSvtgTY86yRc5c7KVCStRBd",
+      );
 
       // Replace with actual vault public key (you need to create a vault account separately)
       const vaultPublicKey = new PublicKey("VAULT_PUBLIC_KEY");
@@ -73,15 +84,15 @@ const Profile = () => {
 
       // Construct the transaction
       const transaction = new Transaction().add(
-          await umi.rpc.methods
-              .listNft(new anchor.BN(parseFloat(price) * 1e9)) // Price in lamports
-              .accounts({
-                seller: owner,
-                nftAccount: nftTokenAccount,
-                vault: vaultPublicKey,
-                tokenProgram: TOKEN_PROGRAM_ID,
-              })
-              .instruction() // Add instruction to the transaction
+        await umi.rpc.methods
+          .listNft(new anchor.BN(parseFloat(price) * 1e9)) // Price in lamports
+          .accounts({
+            seller: owner,
+            nftAccount: nftTokenAccount,
+            vault: vaultPublicKey,
+            tokenProgram: TOKEN_PROGRAM_ID,
+          })
+          .instruction(), // Add instruction to the transaction
       );
 
       // Send the transaction
@@ -101,9 +112,8 @@ const Profile = () => {
     }
   };
 
-
   // Map assets to the format expected by NFTCard
-  const nfts = assets.map(asset => {
+  const nfts = assets.map((asset) => {
     const metadata = asset.content.metadata;
     const links = asset.content.links;
 
@@ -111,46 +121,48 @@ const Profile = () => {
       id: asset.id,
       image: links.image || "", // Provide a fallback if the image URL is missing
       title: metadata.name || "Unknown NFT",
-      price: metadata.attributes.find(attr => attr.trait_type === "Rarity")?.value || "N/A",
+      price:
+        metadata.attributes.find((attr) => attr.trait_type === "Rarity")
+          ?.value || "N/A",
       isSelling: false, // Update this as needed
     };
   });
 
   return (
-      <div className="flex flex-col items-center w-full">
-        <div className="mb-5">
-          <input
-              type="number"
-              value={price}
-              onChange={(e) => setPrice(e.target.value)}
-              placeholder="Enter price in SOL"
-              className="p-2 border rounded"
-          />
-        </div>
-
-        <div className="flex w-full flex-wrap gap-5">
-          {nfts.map((nft) => (
-              <div
-                  key={nft.id}
-                  onClick={() => listNftForSale(nft.id)} // Trigger the sell function on click
-                  className="cursor-pointer"
-              >
-                <NFTCard
-                    image={nft.image}
-                    title={nft.title}
-                    price={nft.price}
-                    isSelling={nft.isSelling}
-                />
-              </div>
-          ))}
-        </div>
-
-        {isListing && (
-            <div className="mt-5 text-xl text-center text-blue-500">
-              Listing your NFT for sale...
-            </div>
-        )}
+    <div className="flex w-full flex-col items-center">
+      <div className="mb-5">
+        <input
+          type="number"
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
+          placeholder="Enter price in SOL"
+          className="rounded border p-2"
+        />
       </div>
+
+      <div className="flex w-full flex-wrap gap-5">
+        {nfts.map((nft) => (
+          <div
+            key={nft.id}
+            onClick={() => listNftForSale(nft.id)} // Trigger the sell function on click
+            className="cursor-pointer"
+          >
+            <NFTCard
+              image={nft.image}
+              title={nft.title}
+              price={nft.price}
+              isSelling={nft.isSelling}
+            />
+          </div>
+        ))}
+      </div>
+
+      {isListing && (
+        <div className="mt-5 text-center text-xl text-blue-500">
+          Listing your NFT for sale...
+        </div>
+      )}
+    </div>
   );
 };
 

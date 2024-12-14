@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
-import { metaplex } from '@metaplex-foundation/js'
+import { metaplex } from "@metaplex-foundation/js";
 
 const SellNFT = () => {
-    const autionClient = metaplex.
+  const autionClient = metaplex
     // const umi = createUmi('https://api.devnet.solana.com').use(auctionHouseApi());
     // const [formData, setFormData] = useState({
     //     assetId: '',
@@ -45,34 +44,34 @@ const SellNFT = () => {
     //     }
     // };
 
-    return (
-        <div className="sell-nft">
-            <h1>Sell Your NFT</h1>
-            <div className="form">
-                <label>
-                    Asset ID:
-                    <input
-                        type="text"
-                        name="assetId"
-                        value={formData.assetId}
-                        onChange={handleChange}
-                        placeholder="Enter NFT Asset ID"
-                    />
-                </label>
-                <label>
-                    Price (SOL):
-                    <input
-                        type="number"
-                        name="price"
-                        value={formData.price}
-                        onChange={handleChange}
-                        placeholder="Enter price in SOL"
-                    />
-                </label>
-                <button onClick={handleSellNFT}>List NFT for Sale</button>
-            </div>
-            {status && <p className="status">{status}</p>}
+    .return(
+      <div className="sell-nft">
+        <h1>Sell Your NFT</h1>
+        <div className="form">
+          <label>
+            Asset ID:
+            <input
+              type="text"
+              name="assetId"
+              value={formData.assetId}
+              onChange={handleChange}
+              placeholder="Enter NFT Asset ID"
+            />
+          </label>
+          <label>
+            Price (SOL):
+            <input
+              type="number"
+              name="price"
+              value={formData.price}
+              onChange={handleChange}
+              placeholder="Enter price in SOL"
+            />
+          </label>
+          <button onClick={handleSellNFT}>List NFT for Sale</button>
         </div>
+        {status && <p className="status">{status}</p>}
+      </div>,
     );
 };
 
