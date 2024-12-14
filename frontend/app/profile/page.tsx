@@ -96,7 +96,7 @@ const Profile = () => {
       );
 
       // Send the transaction
-      const signature = await sendTransaction(wallet, connection, transaction);
+      const signature = await sendTransaction(transaction, wallet, connection);
       console.log("Transaction signature:", signature);
 
       // Notify success

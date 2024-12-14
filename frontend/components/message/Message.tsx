@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import TransactionMessage from "./TransactionMessage ";
+import TransactionMessage from "./TransactionMessage";
 
 // Define the types for the props
 interface Message {
